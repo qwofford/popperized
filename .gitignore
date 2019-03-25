@@ -1,0 +1,5 @@
+.pipeline_cache
+popper/
+*sif
+*aux
+*log

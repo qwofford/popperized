@@ -1,0 +1,36 @@
+badge-server-url: http://badges.falsifiable.us
+metadata:
+  access_right: open
+  license: CC-BY-4.0
+  publication_type: article
+  upload_type: publication
+pipelines:
+  barebones_lammps_singularity:
+    envs:
+      host:
+        args: []
+    parameters: []
+    path: pipelines/barebones_lammps_singularity
+    requirements: {}
+    stages:
+    - setup
+    - run
+    - post-run
+    - validate
+    - teardown
+  data_generator:
+    envs:
+      host:
+        args: []
+    parameters: []
+    path: pipelines/data_generator
+    requirements: {}
+    stages:
+    - setup
+    - run
+    - post-run
+    - validate
+    - teardown
+search_sources:
+- popperized
+version: 1

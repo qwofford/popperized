@@ -1,0 +1,15 @@
+BootStrap: library
+From: centos:latest
+
+%post
+    mkdir -p /opt/lammps
+    yum -y install wget
+    wget -P /opt/lammps/ http://datamunger.ddns.net/lammps_centos7_build.tar.gz
+    wget -P /opt/lammps/ http://datamunger.ddns.net/lammps_examples.tar.gz
+    tar -xf /opt/lammps/lammps_centos7_build.tar.gz -C /opt/lammps/
+    tar -xf /opt/lammps/lammps_examples.tar.gz -C /opt/lammps/
+
+%runscript
+    /opt/lammps/install/bin/lmp -i /opt/lammps/examples/indent/in.indent
+%labels
+    Author QuincyWofford
