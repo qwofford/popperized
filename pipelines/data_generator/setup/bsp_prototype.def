@@ -2,13 +2,13 @@ BootStrap: library
 From: centos:latest
 
 %post
-    mkdir -p /opt/bsp_simulator
+    mkdir -p /opt/bsp_prototype
     rpm --import https://www.centos.org/keys/RPM-GPG-KEY-CentOS-7
     yum -y install centos-release-scl 
     yum -y install wget openmpi-devel gsl-devel libgfortran gmp-devel rh-python36 rh-python36-numpy zsh openssl-devel perf
     yum -y group install "Development Tools"
     ln -s /usr/lib64/openmpi/bin/mpic++ /usr/bin/mpic++
-    ln -s /usr/lib64/openmpi/bin/mpirun /usr/bin/mpirun
+    https://github.com/UNM-CARC/bsp_prototype/archive/b95576c9c7a68dfec09ac5c161c07c164551de40.zip
     wget -P /opt/bsp_prototype/ https://github.com/UNM-CARC/bsp_prototype/archive/b95576c9c7a68dfec09ac5c161c07c164551de40.zip
     unzip /opt/bsp_prototype/b95576c9c7a68dfec09ac5c161c07c164551de40.zip -d /opt/
     pushd /opt/bsp_prototype-b95576c9c7a68dfec09ac5c161c07c164551de40/sprng5
