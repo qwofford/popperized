@@ -9,16 +9,16 @@ From: centos:latest
     yum -y group install "Development Tools"
     ln -s /usr/lib64/openmpi/bin/mpic++ /usr/bin/mpic++
     ln -s /usr/lib64/openmpi/bin/mpirun /usr/bin/mpirun
-    wget -P /opt/bsp_prototype/ https://github.com/UNM-CARC/bsp_prototype/archive/deb5d1f8fd061dbea64698e0a6aff0d9fa32c108.zip
-    unzip /opt/bsp_prototype/deb5d1f8fd061dbea64698e0a6aff0d9fa32c108.zip -d /opt/
-    pushd /opt/bsp_prototype-deb5d1f8fd061dbea64698e0a6aff0d9fa32c108/sprng5
+    wget -P /opt/bsp_prototype/ https://github.com/UNM-CARC/bsp_prototype/archive/b95576c9c7a68dfec09ac5c161c07c164551de40.zip
+    unzip /opt/bsp_prototype/b95576c9c7a68dfec09ac5c161c07c164551de40.zip -d /opt/
+    pushd /opt/bsp_prototype-b95576c9c7a68dfec09ac5c161c07c164551de40/sprng5
     /usr/bin/zsh ./installSprng
     popd
-    pushd /opt/bsp_prototype-deb5d1f8fd061dbea64698e0a6aff0d9fa32c108/
+    pushd /opt/bsp_prototype-b95576c9c7a68dfec09ac5c161c07c164551de40/
     make
     popd
 %runscript
-    /opt/rh/rh-python36/root/bin/python3.6 /opt/bsp_prototype-deb5d1f8fd061dbea64698e0a6aff0d9fa32c108/data_gen.py
-    /opt/bsp_prototype-deb5d1f8fd061dbea64698e0a6aff0d9fa32c108/gather_new.sh
+    /opt/rh/rh-python36/root/bin/python3.6 /opt/bsp_prototype-b95576c9c7a68dfec09ac5c161c07c164551de40/data_gen.py
+    /opt/bsp_prototype-b95576c9c7a68dfec09ac5c161c07c164551de40/gather_new.sh
 %labels
     Author QuincyWofford,KeiraHaskins
