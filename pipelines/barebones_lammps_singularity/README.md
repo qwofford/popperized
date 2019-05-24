@@ -17,25 +17,16 @@ The pipeline consists of the following stages:
 
 # Obtaining the pipeline
 
-To add this pipeline to your project using the
-[`popper` CLI tool](https://github.com/systemslab/popper):
-
-```bash
-cd your-repo
-popper add wofford/cdse/lammps-barebones-singularity
-```
+To add this pipeline, clone the popperized repository, or clone the cdse repository recursively.
 
 # Running the pipeline
 
-To run the pipeline using the
-[`popper` CLI tool](https://github.com/systemslab/popper):
-
 ```bash
-cd cdse
+cd cdse/popperized
 popper run lammps-barebones-singularity
 ```
 
-The pipeline is executed on the following environment(s): `OSX, linux`.
+The pipeline is executed on the following environment(s): `OSX, linux`. Beware! This experiment requires root! If you don't want to use root, take a look at the line in the setup stage which requires SUDO access, and remove it.
 
 
 # Dependencies
