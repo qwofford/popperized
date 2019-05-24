@@ -35,22 +35,8 @@ cd cdse
 popper run lammps-barebones-singularity
 ```
 
-The pipeline is executed on the following environment(s): `OSX, linux`. In addition,
-the following environment variables are expected:
+The pipeline is executed on the following environment(s): `OSX, linux`.
 
-  * `<ENV_VAR1>`. Env description would go here
-  * `<ENV_VAR2>`. Another description.
-
-
-For example, the following is an execution with all expected
-variables:
-
-```bash
-export <ENV_VAR1>=value-for-<ENV_VAR_1>
-export <ENV_VAR2>=value-for-<ENV_VAR_2>
-
-popper run lammps-barebones-singularity
-```
 
 # Dependencies
 
@@ -59,3 +45,4 @@ popper run lammps-barebones-singularity
   * Singularity v3.0.2 or greater
   * Edit sudoers file so running user has NOPASSWD option. For example: ```qwofford	ALL=(ALL:ALL) NOPASSWD:ALL```
   * perf-tools is required to collect hardware counter statistics per process. A paranoia level of 2 is sufficient to do these tests
+  * Remote Singularity build requires that a sylabs.io authentication token is used. You can generate a a sylabs token by creating an account and making a token here: [https://cloud.sylabs.io/auth](https://cloud.sylabs.io/auth)
