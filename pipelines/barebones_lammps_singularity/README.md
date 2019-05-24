@@ -22,7 +22,7 @@ To add this pipeline, clone the popperized repository, or clone the cdse reposit
 # Running the pipeline
 
 ```bash
-cd cdse/popperized
+cd cdse/experiments/popperized
 popper run lammps-barebones-singularity
 ```
 
