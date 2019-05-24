@@ -15,7 +15,7 @@ The pipeline consists of the following stages:
 # Running the pipeline
 
 ```bash
-cd cdse
+cd cdse/experiments/popperized
 popper run data_generator
 ```
 
