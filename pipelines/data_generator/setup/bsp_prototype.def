@@ -5,8 +5,16 @@ From: centos:latest
     mkdir -p /opt/bsp_prototype
     rpm --import https://www.centos.org/keys/RPM-GPG-KEY-CentOS-7
     yum -y install centos-release-scl 
-    yum -y install wget openmpi-devel gsl-devel libgfortran gmp-devel rh-python36 rh-python36-numpy zsh openssl-devel perf
+    yum -y install wget gsl-devel libgfortran gmp-devel rh-python36 rh-python36-numpy zsh openssl-devel perf
     yum -y group install "Development Tools"
+    # IB stuff, based on https://community.mellanox.com/docs/DOC-2431
+    yum -y install dapl dapl-utils ibacm infiniband-diags libibverbs libibverbs-devel libibverbs-utils libmlx4 librdmacm librdmacm-utils mstflint opensm-libs perftest qperf rdma
+
+    git clone https://github.com/spack/spack.git
+    . spack/share/spack/setup-env.sh
+    spack install openmpi@3.1.3
+    spack install openspeedshop@2.4.0
+
     ln -s /usr/lib64/openmpi/bin/* /usr/bin/
     wget -P /opt/bsp_prototype/ https://github.com/UNM-CARC/bsp_prototype/archive/a0a3e9b5f2c31f5cbccce6c1e1b618ea98152d62.zip
     unzip /opt/bsp_prototype/a0a3e9b5f2c31f5cbccce6c1e1b618ea98152d62.zip -d /opt/
@@ -16,6 +24,8 @@ From: centos:latest
     pushd /opt/bsp_prototype-a0a3e9b5f2c31f5cbccce6c1e1b618ea98152d62/
     make
     popd
+%environment
+    export LD_LIBRARY_PATH=/usr/lib/libibverbs:$LD_LIBRARY_PATH
 %runscript
     /opt/rh/rh-python36/root/bin/python3.6 /opt/bsp_prototype-a0a3e9b5f2c31f5cbccce6c1e1b618ea98152d62/data_gen.py
     cat /tmp/results/*
