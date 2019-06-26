@@ -3,7 +3,7 @@ From: centos:latest
 
 %post
     mkdir -p /opt/lammps
-    yum -y install wget
+    yum -y install wget tar gzip
     wget -P /opt/lammps/ http://datamunger.ddns.net/lammps_centos7_build.tar.gz
     wget -P /opt/lammps/ http://datamunger.ddns.net/lammps_examples.tar.gz
     tar -xf /opt/lammps/lammps_centos7_build.tar.gz -C /opt/lammps/
