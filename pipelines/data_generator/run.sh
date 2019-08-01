@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
 # [wf] Run dummy simulation
-singularity run run/bsp_prototype.sif >> results/stdio.csv
-
+qsub -I -x -l nodes=2:ppn=8 -l walltime=0:10:00 -S /bin/bash -j oe -N cdse_datagen -q debug ${PWD}/datagen.sh
