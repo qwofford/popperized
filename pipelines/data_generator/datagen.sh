@@ -14,6 +14,7 @@
 ## TODO add to .profile along with umask
 
 module load openmpi-3.0.0-gcc-4.8.5-i4kxtih
+module load openssl-1.1.1b-gcc-4.8.5-obdqvnl
 module load singularity-3.2.1-gcc-4.8.5-ulix7vo
 
 # The variable $PBS_NP is always equal to nodes x ppn as set via -l flag
@@ -27,11 +28,11 @@ cd $PBS_O_WORKDIR
 
 echo -e "Starting job $(echo $PBS_JOBID | cut -d"." -f1) on $(date)\n"
 
-TMPFILE=`mktemp -d /wheeler/scratch/${USER}/${PBS_JOBNAME}-${PBS_JOBID}.XXXXXX`
+TMPDIR=`mktemp -d /wheeler/scratch/${USER}/${PBS_JOBNAME}-${PBS_JOBID}.XXXXXX`
 # I have redirected output to out.log, which you will be able to check while running. 
 # Otherwise, STDOUT is stored in RAM both consuming RAM and hiding output until the end
 # when the .o file is produced. Feel free to change the name of output to anything you like. 
-mpirun -n $PBS_NP -machinefile $PBS_NODEFILE $SINGULARITY_BIN/singularity run -B ${TMPFILE}:/results bsp_prototype_latest.sif 300000 30000 gaussian 1000
+mpirun -n $PBS_NP -x PBS_O_HOST -x PBS_JOBNAME -machinefile $PBS_NODEFILE $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results bsp_prototype_latest.sif 100000 10000 gaussian 1000
 
 echo "Output data in ${TMPFILE}"
 echo -e "Finished job $(echo $PBS_JOBID | cut -d"." -f1) on $(date)" 
