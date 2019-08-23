@@ -29,10 +29,11 @@ cd $PBS_O_WORKDIR
 echo -e "Starting job $(echo $PBS_JOBID | cut -d"." -f1) on $(date)\n"
 
 TMPDIR=`mktemp -d /wheeler/scratch/${USER}/${PBS_JOBNAME}-${PBS_JOBID}.XXXXXX`
+echo $TMPDIR > /wheeler/scratch/${USER}/TMPDIR
 # I have redirected output to out.log, which you will be able to check while running. 
 # Otherwise, STDOUT is stored in RAM both consuming RAM and hiding output until the end
 # when the .o file is produced. Feel free to change the name of output to anything you like. 
-mpirun -n $PBS_NP -x PBS_O_HOST -x PBS_JOBNAME -machinefile $PBS_NODEFILE $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results bsp_prototype_latest.sif /opt/bsp_prototype/commands.sh 100000 10000 gaussian 1000
+mpirun -n $PBS_NP -x PBS_O_HOST -x PBS_JOBNAME -machinefile $PBS_NODEFILE $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif /opt/bsp_prototype/commands.sh 100000 10000 gaussian 1000
 
 echo "Output data in ${TMPFILE}"
 echo -e "Finished job $(echo $PBS_JOBID | cut -d"." -f1) on $(date)" 
