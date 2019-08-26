@@ -1,2 +1,3 @@
 #!/bin/bash
-mv /tmp/results/* results/job_output
+TMPDIR=$(cat /wheeler/scratch/${USER}/TMPDIR)
+mv ${TMPDIR}/* results/job_output
