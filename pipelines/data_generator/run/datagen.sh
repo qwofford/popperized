@@ -11,9 +11,7 @@
 # submission, or quickly override a variable. 
 
 # Load the environment modules system
-## TODO add to .profile along with umask
-
-module load openmpi-3.0.0-gcc-4.8.5-i4kxtih
+module load openmpi-3.1.4-gcc-4.8.5-4rs6enq
 module load openssl-1.1.1b-gcc-4.8.5-obdqvnl
 module load singularity-3.2.1-gcc-4.8.5-ulix7vo
 
@@ -30,10 +28,9 @@ echo -e "Starting job $(echo $PBS_JOBID | cut -d"." -f1) on $(date)\n"
 
 TMPDIR=`mktemp -d /wheeler/scratch/${USER}/${PBS_JOBNAME}-${PBS_JOBID}.XXXXXX`
 echo $TMPDIR > /wheeler/scratch/${USER}/TMPDIR
-# I have redirected output to out.log, which you will be able to check while running. 
-# Otherwise, STDOUT is stored in RAM both consuming RAM and hiding output until the end
-# when the .o file is produced. Feel free to change the name of output to anything you like. 
-mpirun -n $PBS_NP -x PBS_O_HOST -x PBS_JOBNAME -machinefile $PBS_NODEFILE $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif /opt/bsp_prototype/commands.sh 100000 10000 gaussian 1000
 
-echo "Output data in ${TMPFILE}"
+# Arguments here just in case to force mpi to use the proper UCX infiniband device.
+mpirun -n $PBS_NP -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif 10000 10000 gaussian 1000
+
+echo "Output data in ${TMPDIR}"
 echo -e "Finished job $(echo $PBS_JOBID | cut -d"." -f1) on $(date)" 
