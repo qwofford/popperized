@@ -30,7 +30,12 @@ TMPDIR=`mktemp -d /wheeler/scratch/${USER}/${PBS_JOBNAME}-${PBS_JOBID}.XXXXXX`
 echo $TMPDIR > /wheeler/scratch/${USER}/TMPDIR
 
 # Arguments here just in case to force mpi to use the proper UCX infiniband device.
-mpirun -n $PBS_NP -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif 100000 10000 gaussian 1000
+#mpirun -n $PBS_NP -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif 100000 10000 gaussian 1000
+mpirun -np 8 -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif 100000 10000 gaussian 1000
+mpirun -np 16 -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif 100000 10000 gaussian 1000
+mpirun -np 32 -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif 100000 10000 gaussian 1000
+mpirun -np 64 -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif 100000 10000 gaussian 1000
+mpirun -np 128 -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif 100000 10000 gaussian 1000
 
 echo "Output data in ${TMPDIR}"
 echo -e "Finished job $(echo $PBS_JOBID | cut -d"." -f1) on $(date)" 
