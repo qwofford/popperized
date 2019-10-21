@@ -31,11 +31,12 @@ echo $TMPDIR > /wheeler/scratch/${USER}/TMPDIR
 
 # Arguments here just in case to force mpi to use the proper UCX infiniband device.
 #mpirun -n $PBS_NP -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif 100000 10000 gaussian 1000
-mpirun -np 8 -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif -a 100000 -b 10000 -d gaussian -i 1000
-mpirun -np 16 -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif -a 100000 -b 10000 -d gaussian -i 1000
-mpirun -np 32 -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif -a 100000 -b 10000 -d gaussian -i 1000
-mpirun -np 64 -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif -a 100000 -b 10000 -d gaussian -i 1000
-mpirun -np 128 -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif -a 100000 -b 10000 -d gaussian -i 1000
+
+for NP in [ 8 16 32 64 ]; 
+do
+	mpirun -np ${NP} -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif -a 100000 -b 10000 -d gaussian -i 1000
+	mpirun -np ${NP} -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif -a 2 -b 50000 -d pareto -i 1000
+done
 
 echo "Output data in ${TMPDIR}"
 echo -e "Finished job $(echo $PBS_JOBID | cut -d"." -f1) on $(date)" 
