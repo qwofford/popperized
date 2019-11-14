@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # [wf] Start LDMS aggregator
-export MODULEFILES=/opt/spack/share/spack/modules/linux-centos7-x86_64:/opt/local/modules/all:/opt/ohpc/pub/modulefiles:/wheeler/scratch/qwofford/modulefiles
+export MODULEFILES=${MODULEFILES}:/opt/spack/share/spack/modules/linux-centos7-x86_64:/opt/local/modules/all:/opt/ohpc/pub/modulefiles:/wheeler/scratch/qwofford/modulefiles
 module load ovis/4.2.3
 source /wheeler/scratch/qwofford/opt/ovis/4.2.3/configs/start_agg_csv.sh
 
