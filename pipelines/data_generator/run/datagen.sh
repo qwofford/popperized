@@ -32,10 +32,13 @@ echo $TMPDIR > /wheeler/scratch/${USER}/TMPDIR
 # Arguments here just in case to force mpi to use the proper UCX infiniband device.
 #mpirun -n $PBS_NP -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif 100000 10000 gaussian 1000
 
+# Unpack the sif file so we can get 700 permissions on /opt/ldms_wheeler/ldmsauth.conf inside the container (req. by ldms)
+#$SINGULARITY_BIN/singularity build --sandbox /wheeler/scratch/${USER}/bsp_prototype run/bsp_prototype_carc-wheeler.sif
+
 #for NP in 8 16 32 64 128 
 for NP in 8
 do
-	mpirun -np ${NP} -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results -B /tmp -B $PBS_NODEFILE -B /etc/hostname -B /wheeler/scratch/$(whoami)/ run/bsp_prototype_carc-wheeler.sif -a 100000 -b 10000 -d gaussian -i 1000 -t 1000
+	mpirun -np ${NP} -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results -B /tmp -B $PBS_NODEFILE -B /etc/hostname -B /wheeler/scratch/$(whoami)/ /wheeler/scratch/${USER}/bsp_prototype -a 100000 -b 10000 -d gaussian -i 1000 -t 1000
 #	mpirun -np ${NP} -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif -a 100000 -d exponential -i 1000
 #	mpirun -np ${NP} -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif -a 2 -b 50000 -d pareto -i 1000
 done

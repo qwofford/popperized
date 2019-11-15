@@ -7,4 +7,3 @@ paste -d'\n' results/job_output/* >> results/result.csv
 mv /wheeler/scratch/$(whoami)/ldms_output/* results/ldms_output/
 
 rm results/job_output/*
-rm /wheeler/scratch/$(whoami)/ldms_output/*
