@@ -35,7 +35,7 @@ echo $TMPDIR > /wheeler/scratch/${USER}/TMPDIR
 #for NP in 8 16 32 64 128 
 for NP in 8
 do
-	mpirun -np ${NP} -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_carc-wheeler.sif -a 100000 -b 10000 -d gaussian -i 1000 -t 1000
+	mpirun -np ${NP} -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results -B /tmp -B $PBS_NODEFILE -B /etc/hostname -B /wheeler/scratch/$(whoami)/ run/bsp_prototype_carc-wheeler.sif -a 100000 -b 10000 -d gaussian -i 1000 -t 1000
 #	mpirun -np ${NP} -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif -a 100000 -d exponential -i 1000
 #	mpirun -np ${NP} -machinefile $PBS_NODEFILE -mca pml ucx --mca btl ^vader,tcp,openib,uct -x UCX_NET_DEVICES=mlx4_0:1 $SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results run/bsp_prototype_latest.sif -a 2 -b 50000 -d pareto -i 1000
 done
