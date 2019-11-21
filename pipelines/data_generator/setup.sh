@@ -6,6 +6,7 @@ module load openssl-1.1.1b-gcc-4.8.5-obdqvnl
 module load singularity-3.2.1-gcc-4.8.5-ulix7vo
 rm -f run/bsp_prototype_latest.sif
 pushd run
-singularity pull docker://unmcarc/bsp_prototype:latest
+singularity pull docker://unmcarc/bsp_prototype:json
+mv bsp_prototype_json.sif bsp_prototype_latest.sif
 popd
 #fi
