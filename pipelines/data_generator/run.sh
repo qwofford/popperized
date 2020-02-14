@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
-# [wf] Start LDMS aggregator
-export MODULEFILES=${MODULEFILES}:/opt/spack/share/spack/modules/linux-centos7-x86_64:/opt/local/modules/all:/opt/ohpc/pub/modulefiles:/wheeler/scratch/qwofford/modulefiles
-module load ovis/4.2.3
-source /wheeler/scratch/qwofford/opt/ovis/4.2.3/configs/start_agg_csv.sh
 
-# [wf] Run dummy simulation
-qsub -I -x -l nodes=1:ppn=8 -l walltime=0:20:00 -S /bin/bash -j oe -N cdse_datagen ${PWD}/run/datagen.sh
+# Load workflow environment
+source env.sh
+
+# [wf] Load host singularity module
+module load openssl-1.1.1b-gcc-4.8.5-obdqvnl
+module load singularity-3.2.1-gcc-4.8.5-ulix7vo
+
+
+# [wf] Start the LDMS aggregator on the head node
+$SINGULARITY_BIN/singularity exec -B /etc/hostname -B /wheeler/scratch/$(whoami)/ ${CONTAINER_IMAGE_DIR}/bsp_prototype  /opt/ldms_wheeler/start_agg_csv_template.sh 
+
+# [wf] Run bsp simulation
+qsub -I -q debug -x -d ${PWD} -l nodes=${PROBLEM_SIZE}:ppn=8 -l walltime=${USER_SPECIFIED_WALLTIME} -S /bin/bash -j oe -N cdse_datagen ${PWD}/run/datagen.sh

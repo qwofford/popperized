@@ -1,3 +1,5 @@
 #!/bin/bash
-TMPDIR=$(cat /wheeler/scratch/${USER}/TMPDIR)
-mv ${TMPDIR}/* results/job_output
+
+source env.sh
+
+mv ${APPLICATION_OUTPUT_DIR}/*.csv results/job_output
