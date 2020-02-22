@@ -31,6 +31,11 @@ if [ -z "${WORKFLOW_DIR}" ]; then
   exit 1
 fi
 
+if [[ "${CONTAINER_IMAGE_DIR}" != "/wheeler/scratch/$(whoami)" ]]; then
+  echo 'CONTAINER_IMAGE_DIR must be set to /wheeler/scratch/$(whoami) at this time.'
+  exit 1
+fi
+
 if [ -d ${OUTPUT_DIR} ]; then
   echo mkdir -p ${MONITORING_OUTPUT_DIR}
   mkdir -p ${MONITORING_OUTPUT_DIR}
