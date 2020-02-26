@@ -16,4 +16,3 @@ mv ${MONITORING_OUTPUT_DIR}/* results/ldms_output
 # [wf] Generate dataframe with container libs. Assume user can deal with Pandas dataframes
 module load singularity-3.2.1-gcc-4.8.5-ulix7vo
 singularity run ${CONTAINER_IMAGE_DIR}/bsp_prototype generate_dataframe
-

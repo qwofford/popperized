@@ -12,6 +12,9 @@ The pipeline consists of the following stages:
   * [`teardown`](./teardown.sh). Does nothing
 
 
+# Preparing your host environment
+In order to run the pipeline, you need to edit the `env.sh` file in the project root with relevant paths. When making choices, note that the default `run.sh` script submits to the Wheeler queue. If you don't change that the choices you make in `env.sh` must be consistent with debug queue restrictions.
+
 # Running the pipeline
 
 ```bash
@@ -19,7 +22,9 @@ cd cdse/experiments/popperized
 popper run data_generator
 ```
 
-The pipeline is executed on the following environment(s): `OSX, linux`.
+# Validating the pipeline
+The first thing to do is check the outputs in `results/ldms_ouptut` and `results/bsp_sim_output`. There is currently an issue with the json writer that needs to be addressed (only one rank is written when running 1 rank per node. Junk data written when multithreaded.) You can check the `ldms_output` for ldms data, which should be correct.
+
 
 # Dependencies
 
