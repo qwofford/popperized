@@ -45,4 +45,4 @@ echo -e "Starting job $(echo $PBS_JOBID | cut -d"." -f1) on $(date)\n"
 ########################################
 
 
-$SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results -B /tmp -B $PBS_NODEFILE -B /etc/hostname -B ${OUTPUT_DIR} ${CONTAINER_IMAGE_DIR}/bsp_prototype -v -a 100000 -b 10000 -d gaussian -i 1000 -t 1000
+$SINGULARITY_BIN/singularity run -B ${TMPDIR}:/results -B /tmp -B $PBS_NODEFILE -B /etc/hostname -B ${OUTPUT_DIR} ${CONTAINER_IMAGE_DIR}/bsp_prototype -v -a 128 -b 64 -d dgemm -w dgemm -i 1000 #20000
