@@ -12,15 +12,6 @@ echo "Monitoring output directory is: ${MONITORING_OUTPUT_DIR}"
 echo "Application output directory is: ${APPLICATION_OUTPUT_DIR}"
 echo "Container is expected in: ${CONTAINER_IMAGE_DIR}"
 
-########################################
-#
-# Communicate workflow environment to the container
-#
-########################################
-
-cp env.sh ${CONTAINER_IMAGE_DIR}/bsp_prototype/home/docker/
-
-
 
 # Load the environment modules system
 module load openmpi-3.1.4-gcc-4.8.5-4rs6enq

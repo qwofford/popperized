@@ -30,6 +30,10 @@ if [ -z "${WORKFLOW_DIR}" ]; then
   echo WORKFLOW_DIR isn\'t set. Revise env.sh 
   exit 1
 fi
+if [ -z "${LDMS_PORT}" ]; then
+  echo LDMS_PORT isn\'t set. Revise env.sh 
+  exit 1
+fi
 
 if [[ "${CONTAINER_IMAGE_DIR}" != "/wheeler/scratch/$(whoami)" ]]; then
   echo 'CONTAINER_IMAGE_DIR must be set to /wheeler/scratch/$(whoami) at this time.'

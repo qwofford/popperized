@@ -29,3 +29,6 @@ fi
 if [ -z $(ls ${CONTAINER_IMAGE_DIR}/bsp_prototype) ]; then
   singularity build --sandbox ${CONTAINER_IMAGE_DIR}/bsp_prototype run/bsp_prototype_carc-wheeler.sif
 fi
+
+# [wf] Communicate host+container environment to container image
+cp env.sh ${CONTAINER_IMAGE_DIR}/bsp_prototype/home/docker/env.sh
