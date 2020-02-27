@@ -23,11 +23,14 @@ popper run data_generator
 ```
 
 # Validating the pipeline
-The first thing to do is check the outputs in `results/ldms_ouptut` and `results/bsp_sim_output`. There is currently an issue with the json writer that needs to be addressed (only one rank is written when running 1 rank per node. Junk data written when multithreaded.) You can check the `ldms_output` for ldms data, which should be correct.
+The first thing to do is check the outputs in `results/ldms_ouptut` and `results/bsp_sim_output`. The BSP simulator outputs JSON data. JSON output will be present for each node that participated in the run. A post-run script merges these results into a file called `results/bsp_sim_output/concat.json`. Threads will be designated by rank in the JSON data, if used. LDMS data is written in CSV format.
+
+A post-run python script synchronizes LDMS data with BSP simulator outputs, and writes the merged data as a Pandas dataframe at `results/bsp.df`. This is the research artifact for this pipeline. Further analysis can happen offline, with tools of your choice. If merge critera needs to be altered, or if additional LDMS data is collected, you should edit `post-run/merge_df.py`.
 
 
 # Dependencies
 
   * /bin/bash
   * Singularity 3+
+  * Popper version 1.1.2
   * Remote Singularity build requires that a sylabs.io authentication token is used. You can generate a a sylabs token by creating an account and making a token here: https://cloud.sylabs.io/auth
