@@ -8,4 +8,4 @@ export MONITORING_OUTPUT_DIR=${OUTPUT_DIR}/ldms_output
 export APPLICATION_OUTPUT_DIR=${OUTPUT_DIR}/bsp_prototype_output
 export CONTAINER_IMAGE_DIR=${OUTPUT_DIR}
 export LOG_OUTPUT_DIR=${OUTPUT_DIR}/workflow_logs
-export RESET=0
+export RESET=1
