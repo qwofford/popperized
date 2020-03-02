@@ -33,6 +33,8 @@ export w=dgemm
 #       b: scale (shift to the right ~ largest value in tail)
 export a=128 # A param of distribution/workload
 export b=64 # B param of distribution/workload
+
+
 export ii=1000 # barrier iterations
 
 
