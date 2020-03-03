@@ -19,14 +19,14 @@ if [ "$RESET" -eq "1" ]; then
   rm -rf ${CONTAINER_IMAGE_DIR}/bsp_prototype/
 fi
 
-# [wf] Pull container if sif file not downloaded
-if [ -z $(ls run/bsp_prototype_carc-wheeler.sif ) ]; then 
-  pushd run
-  singularity pull docker://qwofford/bsp_prototype:carc-wheeler
-  popd
-fi
 # [wf] Build container sandbox if not already done
 if [ -z $(ls ${CONTAINER_IMAGE_DIR} | grep -E '^bsp_prototype$') ]; then
+  # [wf] Pull container if sif file not downloaded
+  if [ -z $(ls run/bsp_prototype_carc-wheeler.sif ) ]; then 
+    pushd run
+    singularity pull docker://qwofford/bsp_prototype:carc-wheeler
+    popd
+  fi
   singularity build --sandbox ${CONTAINER_IMAGE_DIR}/bsp_prototype run/bsp_prototype_carc-wheeler.sif
 fi
 
