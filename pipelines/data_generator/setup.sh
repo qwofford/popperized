@@ -26,7 +26,7 @@ if [ -z $(ls run/bsp_prototype_carc-wheeler.sif ) ]; then
   popd
 fi
 # [wf] Build container sandbox if not already done
-if [ -z $(ls ${CONTAINER_IMAGE_DIR}/bsp_prototype) ]; then
+if [ -z $(ls ${CONTAINER_IMAGE_DIR}/bsp_prototype | grep -E '^bsp_prototype$') ]; then
   singularity build --sandbox ${CONTAINER_IMAGE_DIR}/bsp_prototype run/bsp_prototype_carc-wheeler.sif
 fi
 
